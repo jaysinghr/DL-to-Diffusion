@@ -12,7 +12,7 @@ import fastcore.all as fc
 
 from torch.utils.data import default_collate
 
-from miniai.training import *
+from .training import *
 
 # %% auto 0
 __all__ = ['apply_inplace_transformation', 'collate_dict']
