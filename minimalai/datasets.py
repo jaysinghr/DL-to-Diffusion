@@ -270,8 +270,8 @@ class DataLoaders:
         - DataLoaders: DataLoaders object with train and valid dataloaders.
         '''
         # Create a collate function for the train dataset
-        collate_fn = collate_dict(dataset_dict['train'])
+        collate_f = collate_dict(dataset_dict['train'])
 
         # Get train and valid dataloaders from the datasets using `get_dataloaders`
         # Return a new instance of DataLoaders with train and valid dataloaders
-        return cls(*get_dataloaders(*dataset_dict.values(), batch_size=batch_size, collate_fn=collate_fn, **kwargs))
+        return cls(*get_dataloaders(*dataset_dict.values(), batch_size=batch_size, collate_fn=collate_f, **kwargs))
