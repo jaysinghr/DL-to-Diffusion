@@ -273,10 +273,10 @@ class DataLoaders:
         collate_fn = collate_dict(dataset_dict['train'])
 
         # Get train and valid dataloaders from the datasets using `get_dataloaders`
-        train_loader, valid_loader = get_dataloaders(
-            dataset_dict['train'], dataset_dict['valid'],
+        data_loaders = get_dataloaders(
+            *dataset_dict.values(),
             batch_size=batch_size, collate_fn=collate_fn, **kwargs
         )
 
         # Return a new instance of DataLoaders with train and valid dataloaders
-        return cls(train_loader, valid_loader)
+        return cls(*data_loaders)
