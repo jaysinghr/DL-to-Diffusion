@@ -137,6 +137,5 @@ def get_dataloaders(training_dataset, validation_dataset, batch_size, **kwargs):
     tuple(DataLoader, DataLoader)
         A tuple containing two data loaders, one for training and one for validation.
     """
-    train_dataloader = DataLoader(training_dataset, batch_size=batch_size, shuffle=True, **kwargs)
-    validation_dataloader = DataLoader(validation_dataset, batch_size=batch_size*2, **kwargs)
-    return train_dataloader, validation_dataloader
+    return (DataLoader(training_dataset, batch_size=batch_size, shuffle=True, **kwargs),
+            DataLoader(validation_dataset, batch_size=batch_size*2, **kwargs))

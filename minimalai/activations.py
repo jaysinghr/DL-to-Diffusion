@@ -19,13 +19,13 @@ def set_seed(seed, deterministic=False):
     random.seed(seed)
     np.random.seed(seed)
 
-# %% ../nbs/10_activations.ipynb 30
+# %% ../nbs/10_activations.ipynb 34
 class Hook():
     def __init__(self, m, f): self.hook = m.register_forward_hook(partial(f, self))
     def remove(self): self.hook.remove()
     def __del__(self): self.remove()
 
-# %% ../nbs/10_activations.ipynb 42
+# %% ../nbs/10_activations.ipynb 46
 class Hooks(list):
     def __init__(self, ms, f): super().__init__([Hook(m, f) for m in ms])
     def __enter__(self, *args): return self
@@ -37,7 +37,7 @@ class Hooks(list):
     def remove(self):
         for h in self: h.remove()
 
-# %% ../nbs/10_activations.ipynb 46
+# %% ../nbs/10_activations.ipynb 50
 class HooksCallback(Callback):
     def __init__(self, hookfunc, mod_filter=fc.noop, on_train=True, on_valid=False, mods=None):
         fc.store_attr()
@@ -55,7 +55,7 @@ class HooksCallback(Callback):
     def __iter__(self): return iter(self.hooks)
     def __len__(self): return len(self.hooks)
 
-# %% ../nbs/10_activations.ipynb 51
+# %% ../nbs/10_activations.ipynb 55
 def append_stats(hook, mod, inp, outp):
     if not hasattr(hook,'stats'): hook.stats = ([],[],[])
     acts = to_cpu(outp)
@@ -63,16 +63,16 @@ def append_stats(hook, mod, inp, outp):
     hook.stats[1].append(acts.std())
     hook.stats[2].append(acts.abs().histc(40,0,10))
 
-# %% ../nbs/10_activations.ipynb 53
+# %% ../nbs/10_activations.ipynb 57
 # Thanks to @ste for initial version of histgram plotting code
 def get_hist(h): return torch.stack(h.stats[2]).t().float().log1p()
 
-# %% ../nbs/10_activations.ipynb 55
+# %% ../nbs/10_activations.ipynb 59
 def get_min(h):
     h1 = torch.stack(h.stats[2]).t().float()
     return h1[0]/h1.sum(0)
 
-# %% ../nbs/10_activations.ipynb 58
+# %% ../nbs/10_activations.ipynb 62
 class ActivationStats(HooksCallback):
     def __init__(self, mod_filter=fc.noop): super().__init__(append_stats, mod_filter)
 
