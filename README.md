@@ -4,6 +4,6 @@ This repository chronicles my learning journey through Jeremy Howard's comprehen
 
 ## Key Highlights
 - **Coursework:** Notebooks covering various topics, exercises, and hands-on implementations learned from Jeremy Howard's course.
-- **MiniAI Framework:** Building a custom deep learning framework, 'MiniAI', entirely from scratch as part of the learning process.
+- **MinimalAI Framework:** Building a custom deep learning framework, 'MinimalAI', entirely from scratch as part of the learning process with some improvements.
 
 The aim is to comprehensively document my learning path, from grasping the core principles of deep learning to crafting a custom framework, serving as a valuable resource for both personal review and community learning.
